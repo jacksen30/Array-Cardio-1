@@ -36,9 +36,10 @@ const fifteen = inventors.filter(inventor => {
     }
 });
 
-console.log(fifteen);
 console.table(fifteen);
-  
+/* console.log(fifteen); */
+
+
 // Array.prototype.map()
 // 2. Give us an array of the inventors first and last names
 
@@ -46,17 +47,18 @@ const fullNames = inventors.map(inventor => {
     return `${inventor.first} ${inventor.last}`
 });
 
-console.log(fullNames);
 console.table(fullNames);
-  
+/* console.log(fullNames); */
+
+
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
 
-/* Short Hand Using One line arrow function (implicit return) and a ternary operator */
+    /* Short Hand Using One line arrow function (implicit return) and a ternary operator */
 
 const sortedByAge = inventors.sort((a , b) => a.year > b.year ?  1 : -1);
 
-/* Long Hand */ /*
+    /* Long Hand */ /*
 
 const sortedByAge = inventors.sort(function(a, b) {
     if (a.year > b.year) {
@@ -68,20 +70,75 @@ const sortedByAge = inventors.sort(function(a, b) {
 
 */
 
-console.log(sortedByAge);
 console.table(sortedByAge);
-  
+/* console.log(sortedByAge); */
+
+
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+
+/* Wes Bos Way
+
+const totalYears = inventors.reduce((total, inventor) => {
+    return total + (inventor.passed - inventor.year)
+}, 0);
+*/
+
+/* More typical reduce variable naming, the 0 is setting the inital accumulator value */
+
+const totalYears = inventors.reduce((accumulator, currentValue) => {
+    return accumulator + (currentValue.passed - currentValue.year)
+}, 0);
+
+console.log(totalYears);
+
   
 // 5. Sort the inventors by years lived
+    
+    /* Custom sort with comparotor function */
+
+/*
+const sortByMostYearsLived = inventors.sort((a, b) => {
+    if ((a.passed - a.year) > (b.passed - b.year)) {
+        return -1;
+    } else {
+        return 1;
+    }
+})
+*/
+
+    /* Short Hand Using One line arrow function (implicit return) and a ternary operator - (Same result as above) */
+
+const sortByMostYearsLived = inventors.sort((a, b) => (a.passed - a.year) > (b.passed - b.year) ? -1 : 1 );
+
+console.table(sortByMostYearsLived);
+/* console.log(sortByMostYearsLived); */
+
   
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-  
+
+    // Must be used in dev console on above website to work will throw an error if ran in this file
+
+/*  
+const category = document.querySelector('.mw-category');
+    // Array.from below converts the returned NodeList into an array so that we can use the map array function on its data later
+const links = Array.from(category.querySelectorAll('a'));
+
+    //we use map to get the textContent of each link, we then filter it for names that include 'de'
+const de = links.map(link => link.textContent).filter(streetName => streetName.includes('de'));
+
+console.log(de);
+/* console.table(de); */
+
   
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+
+const sortedNames = people.sort((a, b) => a[1] < b[1] ? 1 : -1); 
+
+console.log(name);
+console.log(sortedNames);
   
 // 8. Reduce Exercise
 // Sum up the instances of each of these
