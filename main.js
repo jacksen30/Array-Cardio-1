@@ -134,14 +134,45 @@ console.log(de);
   
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+    // As the sort function will sort in place and change the people array order with the wes boss solution,
+    // I instead made a shallow copy of the people array using the spread operator, this keeps the original people array in its original form.
+    // I use object destructuring to create variables aLast, aFirst, bLast, bFirst to hold names once they have been split for comparison
+    // The aLast and bLast variables is only used for comparison purposes, The function still returns the original string 'a' and 'b'
 
-const sortedNames = people.sort((a, b) => a[1] < b[1] ? 1 : -1); 
+const sortedNames = [...people].sort((a, b) => {
+    const [aLast, aFirst] = a.split(', ');
+    const [bLast, bFirst] = b.split(', ');
+    return aLast > bLast ? 1 : -1;
+});
 
-console.log(name);
+console.log(people);
 console.log(sortedNames);
   
 // 8. Reduce Exercise
 // Sum up the instances of each of these
+    
+    // A quick explanation of my solution,
+    // I use the reduce array method on the data array, the accumulator is set as an empty object at end on the reduce function ', {})' ,
+    // If the required 'currentValue / item' key doesn't already exsist in the accumulator object we add it with a value of 0 to initalize it,
+    // For each 'currentValue / item' in the original data array we incremeant the matching keys value in the accumulator by +1
+    // We then return the accumulator object so that it is available to keep updating as we iterate through every item in the data Array 
+    // In summary: Once the reduction process is complete, 
+    // the dataTally variable holds the final result, which is an object that stores the count of each unique value in the data array.
 
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+const dataTally = data.reduce(function(accumulator, currentValue) {
+    
+    if (!accumulator[currentValue]) {
+        accumulator[currentValue] = 0;
+    }
+
+    accumulator[currentValue] ++;
+    return accumulator;
+}, {});
+
+console.log(dataTally);
+console.table(dataTally);
+
+
 
